@@ -1,6 +1,9 @@
 import argparse
 import subprocess
 
+from textual.app import App, ComposeResult
+from textual.widgets import MarkdownViewer
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
@@ -58,6 +61,15 @@ def convert_man_to_markdown(man_page_filepath: str) -> str:
     return result
 
 
+class ManTui(App):
+    def __init__(self, man_markdown: str) -> None:
+        super().__init__()
+        self.man_markdown = man_markdown
+
+    def compose(self) -> ComposeResult:
+        yield MarkdownViewer(self.man_markdown, show_table_of_contents=True)
+
+
 def main() -> None:
     args = parse_args()
     command = args.command
@@ -79,7 +91,8 @@ def main() -> None:
         print("ERROR: Failed to convert man page for", command)
         return
 
-    print(man_markdown)
+    app = ManTui(man_markdown)
+    app.run()
 
 
 if __name__ == "__main__":

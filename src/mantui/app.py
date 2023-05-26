@@ -51,7 +51,3 @@ def main() -> None:
 
     app = Mantui(man_markdown)
     app.run()
-
-
-if __name__ == "__main__":
-    main()

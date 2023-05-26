@@ -31,7 +31,9 @@ def parse_args() -> argparse.Namespace:
         prog="mantui",
         description="A friendly terminal user interface for Linux man pages",
     )
-    parser.add_argument("command", help="The command man page to view")
+    parser.add_argument(
+        "command", help="The command name for the man page you want to view"
+    )
     return parser.parse_args()
 
 
@@ -45,9 +47,11 @@ def main() -> None:
         return
 
     if is_pandoc_installed() is False:
+        print("ERROR: pandoc not installed.")
+        print("mantui uses pandoc to convert the man page files.")
         print(
-            "ERROR: pandoc not installed.",
-            "See https://pandoc.org/installing.html",
+            "Install pandoc using your platform's package manager.",
+            "See https://pandoc.org/installing for more information.",
         )
         return
 

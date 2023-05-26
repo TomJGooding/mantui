@@ -1,7 +1,7 @@
 import argparse
 
 from textual.app import App, ComposeResult
-from textual.widgets import MarkdownViewer
+from textual.widgets import Footer, Header, MarkdownViewer
 
 from mantui.man_to_md import (
     convert_man_to_markdown,
@@ -11,12 +11,19 @@ from mantui.man_to_md import (
 
 
 class Mantui(App):
-    def __init__(self, man_markdown: str) -> None:
+    BINDINGS = [
+        ("q", "quit", "Quit"),
+    ]
+
+    def __init__(self, command: str, man_markdown: str) -> None:
         super().__init__()
         self.man_markdown = man_markdown
+        self.title = f"{command} - mantui"
 
     def compose(self) -> ComposeResult:
+        yield Header()
         yield MarkdownViewer(self.man_markdown, show_table_of_contents=True)
+        yield Footer()
 
 
 def parse_args() -> argparse.Namespace:
@@ -49,5 +56,5 @@ def main() -> None:
         print("ERROR: Failed to convert man page for", command)
         return
 
-    app = Mantui(man_markdown)
+    app = Mantui(command, man_markdown)
     app.run()

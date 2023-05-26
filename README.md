@@ -2,6 +2,8 @@
 
 mantui is a friendly terminal user interface for Linux man pages.
 
+![screenshot](assets/screenshot.png)
+
 ## About
 
 Linux man pages can be a little intimidating.

@@ -14,6 +14,8 @@ class ManPageMarkdownViewer(MarkdownViewer):
     BINDINGS = [
         ("k", "scroll_up", "Up"),
         ("j", "scroll_down", "Down"),
+        ("b", "page_up", "PgUp"),
+        ("f", "page_down", "PgDn"),
         ("g", "scroll_home", "Top"),
         ("ctrl+g", "scroll_end", "End"),
     ]

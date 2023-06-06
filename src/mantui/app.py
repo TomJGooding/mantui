@@ -10,10 +10,17 @@ from mantui.man_to_md import (
 )
 
 
-class Mantui(App):
+class ManPageMarkdownViewer(MarkdownViewer):
     BINDINGS = [
-        ("q", "quit", "Quit"),
+        ("k", "scroll_up", "Up"),
+        ("j", "scroll_down", "Down"),
+        ("g", "scroll_home", "Top"),
+        ("ctrl+g", "scroll_end", "End"),
     ]
+
+
+class Mantui(App):
+    BINDINGS = [("q", "quit", "Quit")]
 
     def __init__(self, command: str, man_markdown: str) -> None:
         super().__init__()
@@ -22,7 +29,7 @@ class Mantui(App):
 
     def compose(self) -> ComposeResult:
         yield Header()
-        yield MarkdownViewer(self.man_markdown, show_table_of_contents=True)
+        yield ManPageMarkdownViewer(self.man_markdown)
         yield Footer()
 
 
